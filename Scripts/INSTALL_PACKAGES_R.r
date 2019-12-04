@@ -1,4 +1,3 @@
-
 pacs<-c("pracma","lme4","lmerTest","predictmeans","lubridate","data.table","roxygen2",
         "deSolve","dplyr","gdata","ggplot2","gimms","graphics","grid","gtools",
         "Kendall","KernSmooth","labeling","lattice",
@@ -18,8 +17,8 @@ for(i in 1:length(pacs)){
     print(paste0("Package ",pac, " was already installed"))
   }
 }
-# # load pacs
-# invisible(lapply(pacs, function(x)require(x,character.only = T,quietly = T)))
+#load pacs
+invisible(lapply(pacs, function(x)require(x,character.only = T,quietly = T)))
 
 
 

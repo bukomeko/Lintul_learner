@@ -2,22 +2,23 @@
 #Download map with weather data and .r listings and copy all intro one directory.
 #set working directory
 
-source('lINTUL2_code.r')	
-source('lINTUL2_input.r')	
-source('plot.poly.reg.r')	#used for plotting x vs y including a simple regression line
+source(here::here('scripts', 'lINTUL2_code.r'))
+source(here::here('scripts', 'lINTUL2_input.r'))	
+source(here::here('scripts', 'plot.poly.reg.r'))	#used for plotting x vs y including a simple regression line
 require('deSolve')    #used for solving ODEs
 
 #---------------------------------Run control---------------------------------------#
 #                                                                                   #
 #-----------------------------------------------------------------------------------#
-wdirectory <- paste0("M://weather/")
+wdirectory <- here::here("Weather")
+seperator <- "/"
 country   <- "NLD"
 station   <- "1"
 STTIME  <- 30         # d     :     start time of simulation
 FINTIM  <- 300       # d     :     finish time 
 DELT    <- 1         # d     :     time step 
 FYR <- 1961          # first year to simulate
-LYR <- 2017          # last year to simulate
+LYR <- 2011          # last year to simulate
 ##=====================================================================================##
 
 VAR_POT=NULL
@@ -28,14 +29,14 @@ pclay<-LINTUL2_parameters(irri=FALSE,soiltype="clay")
 psand$ROOTDM <- 0.6
 pclay$ROOTDM <- 0.6
 
-pdf(file=paste0("Results/LINTUL Potential vs water limited for ",FYR, "-", LYR, ".pdf",sep = "", collapse = NULL))
+pdf(file=paste0("Results/LINTUL Potential vs water limited for ", FYR, "-", LYR, ".pdf",sep = "", collapse = NULL))
 
 for(year in FYR:LYR){
   print(year)
   yr=toString(year)
 
   #Load weather data
-  wdata <- get_weather(directory=wdirectory ,country=country ,station=station,year=substr(yr,2,4))
+  wdata <- get_weather(directory=wdirectory, seperator,country=country ,station=station,year=substr(yr,2,4))
   #LINTUL with irrigation: POTENTIAL PRODUCTION
   state_pot <- ode(LINTUL2_iniSTATES(), 
                    seq(STTIME, FINTIM, by = DELT), 

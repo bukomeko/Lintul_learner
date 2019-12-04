@@ -13,6 +13,7 @@ plot.poly.reg <- function(x,y,interval="none",add.1_1.line=FALSE,pos="topleft",o
   # omit rows with NA
   df <- na.omit(df)
   
+  
   # perform lm(), summary(lm())
   #By default, always linear
   reg  <- lm(y~x,data=df)
@@ -100,4 +101,24 @@ plot.poly.reg <- function(x,y,interval="none",add.1_1.line=FALSE,pos="topleft",o
   
   legend(x=pos, legend = legend, bty = 'n')
     
+}
+
+#data should be a dataframe, FYR is the first year and LYR the last year              
+#the columns with names “year” and “ time” must exist
+#VAR should have the name of the column name to plot
+#example call:
+#plot_years(data=VAR_WLIM, FYR=FYR, LYR=LYR, VAR="WSO", YTITLE="Grain yield, g dry matter m-2")
+#
+plot_years <- function(data=VAR_WLIM, FYR=FYR, LYR=LYR, VAR="WSO", YTITLE="Grain yield, g dry matter m-2"){
+  yrs<-FYR:LYR
+  colrs<-rainbow(length(yrs))
+  
+  nr=1
+  ii<-which(VAR_WLIM[,"year"]==FYR)
+  plot(VAR_WLIM[ii,"time"],VAR_WLIM[ii,VAR],type="l",ylab=YTITLE,xlab="Time",col=colrs[nr])
+  for(yr in (FYR+1):LYR){
+    nr=nr+1
+    ii<-which(VAR_WLIM[,"year"]==yr)
+    lines(VAR_WLIM[ii,"time"],VAR_WLIM[ii,VAR],col=colrs[nr])
+  }
 }

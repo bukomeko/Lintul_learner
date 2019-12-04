@@ -566,7 +566,7 @@ get_results <- function(state_out, year, wdata, STTIME,FINTIM){
 #---------------------------------------------------------------------#
 #get_weather: Extracts weather data from weather files
 #---------------------------------------------------------------------#
-get_weather <- function(directory="..\\weather\\", seperator = "/", country="NLD",station="1",year="954"){
+get_weather <- function(directory=here::here("Weather"), seperator = "/", country="NLD",station="1",year="954"){
   #'@title get_weather.
   #'@description The function takes arguements of directory,country,station and year.
   #'@param directory The directory where the weather data is stored relative to the working.
