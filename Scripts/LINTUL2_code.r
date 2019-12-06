@@ -590,4 +590,3 @@ get_weather <- function(directory=here::here("Weather"), seperator = "/", countr
   )
 }
 
- 
