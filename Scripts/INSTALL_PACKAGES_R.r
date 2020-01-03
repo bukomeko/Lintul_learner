@@ -19,6 +19,3 @@ for(i in 1:length(pacs)){
 }
 #load pacs
 invisible(lapply(pacs, function(x)require(x,character.only = T,quietly = T)))
-
-
-

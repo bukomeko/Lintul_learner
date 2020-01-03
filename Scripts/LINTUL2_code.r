@@ -19,7 +19,6 @@
 #
 # Tom Schut, 2016
 
-
 #--------------------------------------Lintul---------------------------------------#
 #                                                                                   # 
 #-----------------------------------------------------------------------------------#
@@ -32,11 +31,12 @@ LINTUL2 <-function(Time, State, Pars, WDATA){
     DTEFF  <- max(0, WDATA$DAVTMP[Time] - TBASE)     # effective daily temperature (for crop development a treshold temperature (TBASE) needs to be exceeded)
     RPAR <- FPAR * WDATA$DTR[Time]                    # PAR MJ m-2 d-1
     
-    #determine rates when crop is still growing
+      #' While the crop is growing, since @param TSUM is lower than @param FINTSUM,
     if(TSUM < FINTSUM){
-      # Determine water content of rooted soil
+      #'determine @param WC (Wate content in the soil) as below
       WC  <- 0.001 * WA/ROOTD
-      # Once the emergence date is reached and enough water is available the crop emerges (1), once the crop is established is does not disappear again (2)
+      #'When @param DOYEM (emergence date) is reached, and enough water (@param WC  > @param WCWP Water content at wilting point) is available, the crop emerges (1), 
+      # once the crop is established is does not disappear again (2)
       if((Time - DOYEM + 1) > 0 && (WC-WCWP) > 0) { 	# (1)
         emerg1 <- 1 } else { emerg1 <- 0 }
       if(LAI > 0) {									# (2)
